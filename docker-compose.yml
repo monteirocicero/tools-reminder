@@ -1,0 +1,19 @@
+version: "3.8"
+
+networks:
+  default:
+    external:
+      name: backend
+services:
+  toolsdb:
+    image: mongo:latest
+    container_name: toolsdb
+    ports:
+      - 27017:27017
+  tools-app-image:
+    image: tools-app-image
+    container_name: tools-app-image
+    ports:
+      - 8080:8080
+    links:
+      - toolsdb
