@@ -18,4 +18,13 @@ class ToolServiceImpl: ToolService {
         return ToolResponse(toolsRegisted.id, toolsRegisted.title, toolsRegisted.link, toolsRegisted.description, toolsRegisted.tags)
     }
 
+    override fun delete(id: String) {
+        toolRepository.deleteById(id)
+    }
+
+    override fun retrieveAll(): List<ToolResponse> {
+        val allTools = toolRepository.findAll()
+        return allTools.map { ToolResponse(it.id, it.title, it.link, it.description, it.tags) }.toList()
+    }
+
 }
