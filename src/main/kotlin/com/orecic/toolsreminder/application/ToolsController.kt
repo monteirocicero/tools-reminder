@@ -1,7 +1,6 @@
 package com.orecic.toolsreminder.application
 
 import com.orecic.toolsreminder.application.data.ToolRequest
-import com.orecic.toolsreminder.application.data.ToolResponse
 import com.orecic.toolsreminder.service.ToolService
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.http.HttpStatus
@@ -10,6 +9,7 @@ import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
 import java.util.logging.Logger.getLogger
 import javax.security.auth.callback.ConfirmationCallback.OK
+import javax.websocket.server.PathParam
 
 
 @RestController
@@ -47,9 +47,22 @@ class ToolsController {
     fun retrieveAll(): ResponseEntity<*>{
         logger.info("m=retrieveAll")
         try {
-            toolService.retrieveAll()
+            val response = toolService.retrieveAll()
+            return ResponseEntity(response, HttpStatus.OK)
         } catch (e: Exception) {
             logger.info("m=retrieveAll")
+        }
+        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(HttpStatus.INTERNAL_SERVER_ERROR)
+    }
+
+    @GetMapping
+    fun retrieveByTag(@PathParam("tag") tag: String): ResponseEntity<*> {
+        logger.info("m=retrieveByTag")
+        try {
+            val response = toolService.retrieveTag(tag)
+            return ResponseEntity(response, HttpStatus.OK)
+        } catch (e: Exception) {
+            logger.info("m=retrieveByTag")
         }
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(HttpStatus.INTERNAL_SERVER_ERROR)
     }

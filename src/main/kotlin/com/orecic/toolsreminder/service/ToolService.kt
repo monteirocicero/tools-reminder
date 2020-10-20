@@ -7,4 +7,5 @@ interface ToolService {
     fun register(toolRequest: ToolRequest): ToolResponse
     fun delete(id: String)
     fun retrieveAll(): List<ToolResponse>
+    fun retrieveTag(tag: String): List<ToolResponse>
 }

@@ -27,4 +27,10 @@ class ToolServiceImpl: ToolService {
         return allTools.map { ToolResponse(it.id, it.title, it.link, it.description, it.tags) }.toList()
     }
 
+    override fun retrieveTags(): List<ToolResponse> {
+        val byTags = toolRepository.findByTags()
+        return byTags.map { ToolResponse(it.id, it.title, it.link, it.description, it.tags) }.toList()
+    }
+
+
 }
