@@ -55,9 +55,9 @@ class ToolsController {
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(HttpStatus.INTERNAL_SERVER_ERROR)
     }
 
-    @GetMapping
-    fun retrieveByTag(@PathParam("tag") tag: String): ResponseEntity<*> {
-        logger.info("m=retrieveByTag")
+    @GetMapping("/tags")
+    fun retrieve(@RequestParam("tag") tag: String): ResponseEntity<*> {
+        logger.info("m=retrieve")
         try {
             val response = toolService.retrieveTag(tag)
             return ResponseEntity(response, HttpStatus.OK)
